@@ -1,0 +1,41 @@
+# ============================================================
+# HealthIntel - Unified Requirements
+# ============================================================
+
+# --- Core Framework ---
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+streamlit>=1.28.0
+python-dotenv>=1.0.0
+python-multipart>=0.0.6
+
+# --- ML / Data Science ---
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+joblib>=1.3.0
+Pillow>=10.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# --- Deep Learning (Eye Disease module - optional) ---
+# torch>=2.0.0
+# torchvision>=0.15.0
+# fastai>=2.7.0
+
+# --- Symptom Prediction Ensemble ---
+xgboost>=2.0.0
+catboost>=1.2.0
+lightgbm>=4.1.0
+
+# --- Hospital Recommendation ---
+requests>=2.31.0
+geopy>=2.4.0
+folium>=0.15.0
+streamlit-folium>=0.15.0
+
+# --- Data Processing ---
+openpyxl>=3.1.0
+
+# --- HTTP client for frontend->backend ---
+httpx>=0.25.0

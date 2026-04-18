@@ -1,0 +1,16 @@
+name,latitude,longitude,address,city,specialties,phone,rating
+AIIMS New Delhi,28.5672,77.2100,"Ansari Nagar East, New Delhi",New Delhi,"neurology,cardiology,ophthalmology,general_practice,internal_medicine,geriatrics,psychiatry,cardiac_surgery",011-26588500,4.5
+Safdarjung Hospital,28.5686,77.2066,"Ansari Nagar West, New Delhi",New Delhi,"neurology,cardiology,ophthalmology,general_practice,internal_medicine",011-26707437,4.0
+Sir Ganga Ram Hospital,28.6380,77.1890,"Rajinder Nagar, New Delhi",New Delhi,"neurology,cardiology,ophthalmology,general_practice,internal_medicine,cardiac_surgery",011-25750000,4.3
+Fortis Escorts Heart Institute,28.5494,77.2231,"Okhla Road, New Delhi",New Delhi,"cardiology,cardiac_surgery,internal_medicine",011-47135000,4.4
+Max Super Speciality Hospital,28.5689,77.2732,"Saket, New Delhi",New Delhi,"neurology,cardiology,ophthalmology,general_practice,internal_medicine,geriatrics",011-26515050,4.2
+Apollo Hospital,28.5415,77.2837,"Sarita Vihar, New Delhi",New Delhi,"neurology,cardiology,ophthalmology,general_practice,internal_medicine,psychiatry",011-71791090,4.1
+Medanta - The Medicity,28.4395,77.0426,"CH Baktawar Singh Rd, Gurugram",Gurugram,"neurology,cardiology,ophthalmology,general_practice,internal_medicine,geriatrics,cardiac_surgery",0124-4141414,4.6
+BLK-Max Super Speciality Hospital,28.6463,77.1855,"Pusa Road, New Delhi",New Delhi,"neurology,cardiology,ophthalmology,general_practice,internal_medicine",011-30403040,4.2
+Rajiv Gandhi Cancer Institute,28.7175,77.1224,"Rohini, New Delhi",New Delhi,"general_practice,internal_medicine",011-47022222,4.3
+Narayana Health,12.9501,77.5970,"Bommasandra, Bengaluru",Bengaluru,"neurology,cardiology,ophthalmology,general_practice,internal_medicine,cardiac_surgery",080-71222222,4.4
+KEM Hospital,19.0036,72.8410,"Parel, Mumbai",Mumbai,"neurology,cardiology,ophthalmology,general_practice,internal_medicine,geriatrics",022-24136051,4.0
+Tata Memorial Hospital,19.0048,72.8434,"Parel, Mumbai",Mumbai,"general_practice,internal_medicine",022-24177000,4.5
+CMC Vellore,12.9241,79.1320,"Ida Scudder Rd, Vellore",Vellore,"neurology,cardiology,ophthalmology,general_practice,internal_medicine,geriatrics,psychiatry",0416-2281000,4.6
+PGIMER Chandigarh,30.7649,76.7756,"Sector 12, Chandigarh",Chandigarh,"neurology,cardiology,ophthalmology,general_practice,internal_medicine,geriatrics,psychiatry",0172-2747585,4.4
+Sankara Nethralaya,13.0569,80.2425,"Nungambakkam, Chennai",Chennai,"ophthalmology",044-28271616,4.5

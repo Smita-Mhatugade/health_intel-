@@ -1,0 +1,72 @@
+{
+    "alzheimer": {
+        "display_name": "Alzheimer's Disease Detection",
+        "description": "Classifies patients into Cognitive Normal (CN), Alzheimer's Disease (AD), or Late Mild Cognitive Impairment (LMCI) using clinical, cognitive, and neuroimaging data.",
+        "input_type": "tabular",
+        "accepted_formats": [".xlsx"],
+        "specialties": ["neurology", "geriatrics", "psychiatry"],
+        "icon": "🧠",
+        "severity_levels": {
+            "CN": {"label": "Cognitive Normal", "level": "Normal", "color": "#22c55e"},
+            "LMCI": {"label": "Late Mild Cognitive Impairment", "level": "Moderate", "color": "#f59e0b"},
+            "AD": {"label": "Alzheimer's Disease", "level": "Severe", "color": "#ef4444"}
+        }
+    },
+    "eye_disease": {
+        "display_name": "Eye Disease Detection",
+        "description": "Classifies eye disease images into five categories: Glaucoma, Cataracts, Uveitis, Crossed Eyes, and Bulging Eyes using a fine-tuned ResNet34 model.",
+        "input_type": "image",
+        "accepted_formats": [".jpg", ".jpeg", ".png"],
+        "specialties": ["ophthalmology"],
+        "icon": "👁️",
+        "available": false,
+        "unavailable_reason": "Eye Disease model requires the full image dataset for training. Please provide the complete Augmented Dataset to enable this module.",
+        "severity_levels": {
+            "Glaucoma": {"label": "Glaucoma", "level": "Severe", "color": "#ef4444"},
+            "Cataracts": {"label": "Cataracts", "level": "Moderate", "color": "#f59e0b"},
+            "Uveitis": {"label": "Uveitis", "level": "Moderate", "color": "#f59e0b"},
+            "Crossed Eyes": {"label": "Crossed Eyes (Strabismus)", "level": "Mild", "color": "#3b82f6"},
+            "Bulging Eyes": {"label": "Bulging Eyes (Proptosis)", "level": "Moderate", "color": "#f59e0b"}
+        }
+    },
+    "heart_failure": {
+        "display_name": "Heart Failure Prediction",
+        "description": "Predicts the likelihood of death due to heart failure using clinical data including age, blood markers, and vital signs.",
+        "input_type": "form",
+        "accepted_formats": [],
+        "specialties": ["cardiology", "internal_medicine", "cardiac_surgery"],
+        "icon": "❤️",
+        "form_fields": [
+            {"name": "age", "label": "Age", "type": "number", "min": 1, "max": 120, "step": 1},
+            {"name": "anaemia", "label": "Anaemia", "type": "select", "options": [0, 1]},
+            {"name": "creatinine_phosphokinase", "label": "Creatinine Phosphokinase (mcg/L)", "type": "number", "min": 1, "max": 10000, "step": 1},
+            {"name": "diabetes", "label": "Diabetes", "type": "select", "options": [0, 1]},
+            {"name": "ejection_fraction", "label": "Ejection Fraction (%)", "type": "number", "min": 1, "max": 100, "step": 1},
+            {"name": "high_blood_pressure", "label": "High Blood Pressure", "type": "select", "options": [0, 1]},
+            {"name": "platelets", "label": "Platelets (kiloplatelets/mL)", "type": "number", "min": 1.0, "max": 1000000.0, "step": 1000.0},
+            {"name": "serum_creatinine", "label": "Serum Creatinine (mg/dL)", "type": "number", "min": 0.1, "max": 20.0, "step": 0.1},
+            {"name": "serum_sodium", "label": "Serum Sodium (mEq/L)", "type": "number", "min": 100, "max": 160, "step": 1},
+            {"name": "sex", "label": "Sex (0=Female, 1=Male)", "type": "select", "options": [0, 1]},
+            {"name": "smoking", "label": "Smoking", "type": "select", "options": [0, 1]},
+            {"name": "time", "label": "Follow-up Period (days)", "type": "number", "min": 1, "max": 365, "step": 1}
+        ],
+        "severity_levels": {
+            "low_risk": {"label": "Low Risk", "level": "Normal", "color": "#22c55e", "threshold": 0.3},
+            "moderate_risk": {"label": "Moderate Risk", "level": "Moderate", "color": "#f59e0b", "threshold": 0.6},
+            "high_risk": {"label": "High Risk", "level": "Severe", "color": "#ef4444", "threshold": 1.0}
+        }
+    },
+    "symptom_prediction": {
+        "display_name": "Disease Prediction from Symptoms",
+        "description": "Predicts diseases based on reported symptoms using an ensemble of machine learning models (Random Forest, XGBoost, CatBoost, LightGBM, and others).",
+        "input_type": "symptoms",
+        "accepted_formats": [],
+        "specialties": ["general_practice", "internal_medicine"],
+        "icon": "🩺",
+        "severity_levels": {
+            "mild": {"label": "Mild Condition", "level": "Mild", "color": "#3b82f6"},
+            "moderate": {"label": "Moderate Condition", "level": "Moderate", "color": "#f59e0b"},
+            "severe": {"label": "Severe Condition", "level": "Severe", "color": "#ef4444"}
+        }
+    }
+}

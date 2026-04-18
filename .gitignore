@@ -1,0 +1,39 @@
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ML Models and large artifacts
+models/*.pkl
+models/symptom_prediction/*.pkl
+*.pth
+*.pt
+
+# Datasets
+*.csv
+*.xls
+*.xlsx
+*.zip
+*.json
+!data/disease_specialties.json
+!data/hospitals.csv
+!data/symptom_data/*.csv
+
+# Uploads
+uploads/
+*.jpg
+*.png
+*.jpeg
+
+# OS generated files
+.DS_Store
+Thumbs.db
