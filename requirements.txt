@@ -18,10 +18,8 @@ Pillow>=10.0.0
 matplotlib>=3.7.0
 seaborn>=0.12.0
 
-# --- Deep Learning (Eye Disease module - optional) ---
-# torch>=2.0.0
-# torchvision>=0.15.0
-# fastai>=2.7.0
+# --- Deep Learning (Eye Disease module) ---
+tensorflow-cpu>=2.13.0
 
 # --- Symptom Prediction Ensemble ---
 xgboost>=2.0.0

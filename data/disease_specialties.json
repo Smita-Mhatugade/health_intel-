@@ -14,19 +14,17 @@
     },
     "eye_disease": {
         "display_name": "Eye Disease Detection",
-        "description": "Classifies eye disease images into five categories: Glaucoma, Cataracts, Uveitis, Crossed Eyes, and Bulging Eyes using a fine-tuned ResNet34 model.",
+        "description": "Classifies eye disease images into four categories: Cataract, Diabetic Retinopathy, Glaucoma, and Normal using a fine-tuned VGG19 model.",
         "input_type": "image",
         "accepted_formats": [".jpg", ".jpeg", ".png"],
         "specialties": ["ophthalmology"],
         "icon": "👁️",
-        "available": false,
-        "unavailable_reason": "Eye Disease model requires the full image dataset for training. Please provide the complete Augmented Dataset to enable this module.",
+        "available": true,
         "severity_levels": {
+            "Normal": {"label": "Healthy Eye", "level": "Normal", "color": "#22c55e"},
+            "Cataract": {"label": "Cataract", "level": "Moderate", "color": "#f59e0b"},
             "Glaucoma": {"label": "Glaucoma", "level": "Severe", "color": "#ef4444"},
-            "Cataracts": {"label": "Cataracts", "level": "Moderate", "color": "#f59e0b"},
-            "Uveitis": {"label": "Uveitis", "level": "Moderate", "color": "#f59e0b"},
-            "Crossed Eyes": {"label": "Crossed Eyes (Strabismus)", "level": "Mild", "color": "#3b82f6"},
-            "Bulging Eyes": {"label": "Bulging Eyes (Proptosis)", "level": "Moderate", "color": "#f59e0b"}
+            "Diabetic Retinopathy": {"label": "Diabetic Retinopathy", "level": "Severe", "color": "#ef4444"}
         }
     },
     "heart_failure": {
@@ -67,6 +65,69 @@
             "mild": {"label": "Mild Condition", "level": "Mild", "color": "#3b82f6"},
             "moderate": {"label": "Moderate Condition", "level": "Moderate", "color": "#f59e0b"},
             "severe": {"label": "Severe Condition", "level": "Severe", "color": "#ef4444"}
+        }
+    },
+    "parkinsons": {
+        "display_name": "Parkinson's Disease Detection",
+        "description": "Predicts the presence of Parkinson's disease from vocal parameters using K-Nearest Neighbors classifier.",
+        "input_type": "form",
+        "accepted_formats": [],
+        "specialties": ["neurology", "otolaryngology"],
+        "icon": "🗣️",
+        "form_fields": [
+            {"name": "MDVP:Fo(Hz)", "label": "MDVP:Fo(Hz)", "type": "number"},
+            {"name": "MDVP:Fhi(Hz)", "label": "MDVP:Fhi(Hz)", "type": "number"},
+            {"name": "MDVP:Flo(Hz)", "label": "MDVP:Flo(Hz)", "type": "number"},
+            {"name": "MDVP:Jitter(%)", "label": "MDVP:Jitter(%)", "type": "number"},
+            {"name": "MDVP:Jitter(Abs)", "label": "MDVP:Jitter(Abs)", "type": "number"},
+            {"name": "MDVP:RAP", "label": "MDVP:RAP", "type": "number"},
+            {"name": "MDVP:PPQ", "label": "MDVP:PPQ", "type": "number"},
+            {"name": "Jitter:DDP", "label": "Jitter:DDP", "type": "number"},
+            {"name": "MDVP:Shimmer", "label": "MDVP:Shimmer", "type": "number"},
+            {"name": "MDVP:Shimmer(dB)", "label": "MDVP:Shimmer(dB)", "type": "number"},
+            {"name": "Shimmer:APQ3", "label": "Shimmer:APQ3", "type": "number"},
+            {"name": "Shimmer:APQ5", "label": "Shimmer:APQ5", "type": "number"},
+            {"name": "MDVP:APQ", "label": "MDVP:APQ", "type": "number"},
+            {"name": "Shimmer:DDA", "label": "Shimmer:DDA", "type": "number"},
+            {"name": "NHR", "label": "NHR", "type": "number"},
+            {"name": "HNR", "label": "HNR", "type": "number"},
+            {"name": "RPDE", "label": "RPDE", "type": "number"},
+            {"name": "DFA", "label": "DFA", "type": "number"},
+            {"name": "spread1", "label": "spread1", "type": "number"},
+            {"name": "spread2", "label": "spread2", "type": "number"},
+            {"name": "D2", "label": "D2", "type": "number"},
+            {"name": "PPE", "label": "PPE", "type": "number"}
+        ],
+        "severity_levels": {
+            "negative": {"label": "No Parkinson's Detected", "level": "Normal", "color": "#22c55e"},
+            "positive": {"label": "Parkinson's Detected", "level": "Severe", "color": "#ef4444"}
+        }
+    },
+    "heart_disease": {
+        "display_name": "Heart Disease Risk Detection",
+        "description": "Analyzes clinical parameters to detect presence of heart disease using a Random Forest ensemble.",
+        "input_type": "form",
+        "accepted_formats": [],
+        "specialties": ["cardiology", "internal_medicine"],
+        "icon": "🫀",
+        "form_fields": [
+            {"name": "age", "label": "Age", "type": "number"},
+            {"name": "sex", "label": "Sex (1=M, 0=F)", "type": "number"},
+            {"name": "cp", "label": "Chest Pain Type", "type": "number"},
+            {"name": "trestbps", "label": "Resting BP", "type": "number"},
+            {"name": "chol", "label": "Cholesterol", "type": "number"},
+            {"name": "fbs", "label": "Fasting Blood Sugar", "type": "number"},
+            {"name": "restecg", "label": "Resting ECG", "type": "number"},
+            {"name": "thalach", "label": "Max Heart Rate", "type": "number"},
+            {"name": "exang", "label": "Exercise Induced Angina", "type": "number"},
+            {"name": "oldpeak", "label": "ST Depression", "type": "number"},
+            {"name": "slope", "label": "Slope of ST Segment", "type": "number"},
+            {"name": "ca", "label": "Number of Major Vessels", "type": "number"},
+            {"name": "thal", "label": "Thalassemia", "type": "number"}
+        ],
+        "severity_levels": {
+            "negative": {"label": "Negative Indicators", "level": "Normal", "color": "#22c55e"},
+            "positive": {"label": "Positive Indicators", "level": "Severe", "color": "#ef4444"}
         }
     }
 }

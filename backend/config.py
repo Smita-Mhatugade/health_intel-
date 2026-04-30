@@ -17,6 +17,9 @@ MODELS_DIR.mkdir(exist_ok=True)
 HEART_FAILURE_MODEL_PATH = MODELS_DIR / "heart_failure_lr.pkl"
 ALZHEIMER_MODEL_PATH = MODELS_DIR / "alzheimer_rf.pkl"
 SYMPTOM_MODELS_DIR = MODELS_DIR / "symptom_prediction"
+EYE_DISEASE_MODEL_PATH = MODELS_DIR / "eye_disease_model.h5"
+PARKINSONS_MODEL_PATH = MODELS_DIR / "parkinsons_model.pkl"
+HEART_DISEASE_MODEL_PATH = MODELS_DIR / "heart_disease_model.pkl"
 
 # Data paths
 DISEASE_SPECIALTIES_PATH = DATA_DIR / "disease_specialties.json"
@@ -30,7 +33,14 @@ def load_disease_config():
         return json.load(f)
 
 # Supported disease categories
-DISEASE_CATEGORIES = ["alzheimer", "heart_failure", "symptom_prediction", "eye_disease"]
+DISEASE_CATEGORIES = [
+    "alzheimer", 
+    "heart_failure", 
+    "symptom_prediction", 
+    "eye_disease", 
+    "parkinsons", 
+    "heart_disease"
+]
 
 # API settings
 API_HOST = "0.0.0.0"
@@ -39,4 +49,5 @@ API_PORT = 8000
 # Hospital recommendation
 HOSPITAL_SEARCH_RADIUS_KM = 50
 OVERPASS_API_URL = "https://overpass-api.de/api/interpreter"
-NOMINATIM_URL = "https://nominatim.openstreetmap.org"
+GEOAPIFY_API_KEY = os.getenv("GEOAPIFY_API_KEY", "")
+

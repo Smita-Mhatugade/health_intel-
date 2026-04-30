@@ -3,7 +3,7 @@ import math
 import pandas as pd
 import requests
 from typing import List, Optional
-from backend.models.schemas import HospitalInfo
+from backend.schemas.schemas import HospitalInfo
 from backend import config
 
 
@@ -130,26 +130,94 @@ def _query_local_database(user_lat: float, user_lon: float, radius_km: float,
     return hospitals
 
 
+def _query_geoapify(lat: float, lon: float, radius_km: float) -> Optional[List[HospitalInfo]]:
+    """Query Geoapify API for hospitals near a location."""
+    if not config.GEOAPIFY_API_KEY:
+        return None
+        
+    radius_m = int(radius_km * 1000)
+    url = "https://api.geoapify.com/v2/places"
+    params = {
+        "categories": "healthcare.hospital",
+        "filter": f"circle:{lon},{lat},{radius_m}",
+        "bias": f"proximity:{lon},{lat}",
+        "limit": 20,
+        "apiKey": config.GEOAPIFY_API_KEY
+    }
+    
+    try:
+        resp = requests.get(url, params=params, timeout=10)
+        if resp.status_code == 200:
+            data = resp.json()
+            features = data.get("features", [])
+            hospitals = []
+            
+            for feature in features:
+                props = feature.get("properties", {})
+                h_lat = props.get("lat", 0)
+                h_lon = props.get("lon", 0)
+                
+                if h_lat == 0 and h_lon == 0:
+                    continue
+                    
+                distance_km = props.get("distance", 0) / 1000.0
+                if distance_km == 0:
+                    distance_km = haversine_distance(lat, lon, h_lat, h_lon)
+                    
+                address = props.get("address_line2", props.get("formatted", "Address not available"))
+                name = props.get("name", "Unknown Hospital")
+                if not name:
+                    name = "Unknown Hospital"
+                    
+                hospitals.append(HospitalInfo(
+                    name=name,
+                    address=address,
+                    city=props.get("city"),
+                    latitude=h_lat,
+                    longitude=h_lon,
+                    distance_km=round(distance_km, 2),
+                    specialties=["general"], # Geoapify doesn't reliably return hospital specialties
+                    phone=props.get("contact", {}).get("phone")
+                ))
+            
+            hospitals.sort(key=lambda h: h.distance_km)
+            return hospitals
+    except Exception as e:
+        print(f"[HospitalRecommender] Geoapify API error: {e}")
+    
+    return None
+
+
 def recommend_hospitals(lat: float, lon: float, disease_category: str,
                         radius_km: float = 50.0) -> dict:
     """
-    Get hospital recommendations using OpenStreetMap Overpass API.
-    Falls back to local CSV database if the API is unavailable.
+    Get hospital recommendations using Geoapify API (if configured) or Overpass API.
+    Falls back to local CSV database if the APIs are unavailable.
     """
     # Load disease specialties
     disease_config = config.load_disease_config()
     specialties = disease_config.get(disease_category, {}).get("specialties", [])
 
-    # Try Overpass API first
-    elements = _query_overpass(lat, lon, radius_km)
-    source = "overpass_api"
+    hospitals = None
+    source = "local_database"
+    
+    # Try Geoapify API first if key is present
+    if config.GEOAPIFY_API_KEY:
+        hospitals = _query_geoapify(lat, lon, radius_km)
+        if hospitals is not None and len(hospitals) > 0:
+            source = "geoapify_api"
+            
+    # Try Overpass API if Geoapify is not used or failed
+    if not hospitals:
+        elements = _query_overpass(lat, lon, radius_km)
+        if elements is not None and len(elements) > 0:
+            hospitals = _parse_overpass_results(elements, lat, lon, specialties)
+            source = "overpass_api"
 
-    if elements is not None and len(elements) > 0:
-        hospitals = _parse_overpass_results(elements, lat, lon, specialties)
-    else:
-        # Fallback to local database
-        source = "local_database"
+    # Fallback to local database
+    if not hospitals:
         hospitals = _query_local_database(lat, lon, radius_km, specialties)
+        source = "local_database"
 
     return {
         "hospitals": hospitals,

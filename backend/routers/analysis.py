@@ -3,7 +3,13 @@ import io
 import json
 import pandas as pd
 from fastapi import APIRouter, UploadFile, File, Form, HTTPException
-from backend.models.schemas import AnalysisResult, HeartFailureInput, SymptomInput
+from backend.schemas.schemas import (
+    AnalysisResult, 
+    HeartFailureInput, 
+    SymptomInput, 
+    ParkinsonInput, 
+    HeartDiseaseInput
+)
 from backend.services import model_loader
 
 router = APIRouter(prefix="/api", tags=["Analysis"])
@@ -88,9 +94,34 @@ async def get_symptom_list():
 
 @router.post("/analyze/eye-disease", response_model=AnalysisResult)
 async def analyze_eye_disease(file: UploadFile = File(...)):
-    """Analyze eye disease from uploaded image (currently unavailable)."""
+    """Analyze eye disease from uploaded image."""
     analyzer = model_loader.get_analyzer("eye_disease")
-    return analyzer.analyze(None)
+    if not analyzer.is_available():
+        raise HTTPException(status_code=503, detail="Eye disease model not available.")
+    
+    try:
+        contents = await file.read()
+        return analyzer.analyze(contents)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing image: {str(e)}")
+
+
+@router.post("/analyze/parkinsons", response_model=AnalysisResult)
+async def analyze_parkinsons(data: ParkinsonInput):
+    """Analyze Parkinson's risk from vocal parameters."""
+    analyzer = model_loader.get_analyzer("parkinsons")
+    if not analyzer.is_available():
+        raise HTTPException(status_code=503, detail="Parkinson's model not available.")
+    return analyzer.analyze(data.model_dump(by_alias=True))
+
+
+@router.post("/analyze/heart-disease", response_model=AnalysisResult)
+async def analyze_heart_disease(data: HeartDiseaseInput):
+    """Analyze heart disease risk from clinical parameters."""
+    analyzer = model_loader.get_analyzer("heart_disease")
+    if not analyzer.is_available():
+        raise HTTPException(status_code=503, detail="Heart disease model not available.")
+    return analyzer.analyze(data.model_dump())
 
 
 @router.get("/disease-config")

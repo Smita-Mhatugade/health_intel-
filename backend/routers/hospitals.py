@@ -1,6 +1,6 @@
 """Hospital recommendation router."""
 from fastapi import APIRouter
-from backend.models.schemas import HospitalRequest, HospitalResponse
+from backend.schemas.schemas import HospitalRequest, HospitalResponse
 from backend.services.hospital_recommender import recommend_hospitals
 
 router = APIRouter(prefix="/api", tags=["Hospitals"])

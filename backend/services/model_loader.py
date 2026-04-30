@@ -1,9 +1,13 @@
 """Model loader — initializes and caches all disease analyzers."""
-from backend.services.analyzers.heart_failure_analyzer import HeartFailureAnalyzer
-from backend.services.analyzers.alzheimer_analyzer import AlzheimerAnalyzer
-from backend.services.analyzers.symptom_analyzer import SymptomAnalyzer
-from backend.services.analyzers.eye_disease_analyzer import EyeDiseaseAnalyzer
-from backend.services.analyzers.base import BaseAnalyzer
+from backend.services.analyzers.all_analyzers import (
+    HeartFailureAnalyzer,
+    AlzheimerAnalyzer,
+    SymptomAnalyzer,
+    EyeDiseaseAnalyzer,
+    ParkinsonAnalyzer,
+    HeartDiseaseAnalyzer,
+    BaseAnalyzer
+)
 
 _analyzers = {}
 
@@ -19,6 +23,8 @@ def load_all_models():
     _analyzers["alzheimer"] = AlzheimerAnalyzer()
     _analyzers["symptom_prediction"] = SymptomAnalyzer()
     _analyzers["eye_disease"] = EyeDiseaseAnalyzer()
+    _analyzers["parkinsons"] = ParkinsonAnalyzer()
+    _analyzers["heart_disease"] = HeartDiseaseAnalyzer()
 
     available = [k for k, v in _analyzers.items() if v.is_available()]
     unavailable = [k for k, v in _analyzers.items() if not v.is_available()]
