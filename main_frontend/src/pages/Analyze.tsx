@@ -123,21 +123,27 @@ export default function Analyze() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-6 py-8">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold tracking-tight">Analyze</h1>
-        <p className="text-sm text-muted-foreground">
-          Describe your situation in chat, then refine the inputs and run analysis.
+    <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      {/* Page Header */}
+      <div className="mb-8">
+        <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary mb-3">
+          <Sparkles className="h-3.5 w-3.5" /> AI-Powered Analysis
+        </div>
+        <h1 className="text-4xl font-bold gradient-text">Run Analysis</h1>
+        <p className="mt-2 text-sm text-muted-foreground max-w-xl">
+          Describe your situation in chat, or pick a module and fill in the parameters directly.
         </p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_380px]">
         {/* Chat + form */}
         <div className="space-y-6">
-          <Card className="shadow-card">
-            <CardHeader className="border-b">
+          <Card className="glass-card shadow-card border-0">
+            <CardHeader className="border-b border-border/40 bg-gradient-to-r from-primary/5 to-accent/5 rounded-t-2xl">
               <CardTitle className="flex items-center gap-2 text-base">
-                <Sparkles className="h-4 w-4 text-primary" />
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-primary">
+                  <Sparkles className="h-3.5 w-3.5 text-white" />
+                </div>
                 Chat with HealthIntel
               </CardTitle>
             </CardHeader>
@@ -170,23 +176,25 @@ export default function Analyze() {
                   </div>
                 ))}
               </div>
-              <div className="flex items-center gap-2 border-t p-3">
+              <div className="flex items-center gap-2 border-t border-border/40 p-3">
                 <Input
                   placeholder="Describe symptoms or parameters..."
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && send()}
+                  className="rounded-xl"
                 />
-                <Button onClick={send} size="icon" aria-label="Send">
+                <Button onClick={send} size="icon" aria-label="Send"
+                  className="bg-gradient-primary text-white border-0 rounded-xl hover:opacity-90">
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="shadow-card">
-            <CardHeader className="border-b">
-              <CardTitle className="text-base">Inputs & analysis</CardTitle>
+          <Card className="glass-card shadow-card border-0">
+            <CardHeader className="border-b border-border/40 bg-gradient-to-r from-accent/5 to-primary/5 rounded-t-2xl">
+              <CardTitle className="text-base gradient-text">Inputs & Analysis</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 pt-6">
               <div className="space-y-1.5">
