@@ -1,0 +1,49 @@
+# =============================================================
+# HealthIntel — .gitignore
+# =============================================================
+
+# --- Python Environments ---
+.env
+.venv
+env/
+venv/
+ENV/
+
+# --- Byte-compiled / Optimized ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- ML Models (large binary files) ---
+models/*.pkl
+models/*.h5
+models/symptom_prediction/*.pkl
+*.pth
+*.pt
+
+# --- Datasets (large) ---
+*.zip
+
+# --- Uploads ---
+uploads/*
+!uploads/.gitkeep
+
+# --- Node.js ---
+node_modules/
+dist/
+.env.local
+
+# --- IDE / OS ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Old frontend (to be deleted) ---
+frontend/
+
+# --- CatBoost training artifacts ---
+catboost_info/
+
+# --- Eye Disease dataset (too large for GitHub) ---
+Eye-Disease-Detection-main/
