@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Send, Sparkles, Bot, User, ShieldAlert } from "lucide-react";
+import { Send, Bot, User, ShieldAlert, Stethoscope } from "lucide-react";
 import { parseUserMessage } from "@/utils/chatParser";
 import { AnalysisForm, CATEGORY_LABELS } from "@/components/AnalysisForm";
 import { PreviewCard } from "@/components/PreviewCard";
@@ -123,13 +123,13 @@ export default function Analyze() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full max-w-full px-4 py-8 sm:px-6 lg:px-8">
       {/* Page Header */}
       <div className="mb-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary mb-3">
-          <Sparkles className="h-3.5 w-3.5" /> AI-Powered Analysis
+        <div className="inline-flex items-center gap-2 rounded-md border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-medium text-primary mb-3">
+          <Stethoscope className="h-3.5 w-3.5" /> Diagnostic Analysis
         </div>
-        <h1 className="text-4xl font-bold gradient-text">Run Analysis</h1>
+        <h1 className="text-4xl font-bold text-foreground">Run Analysis</h1>
         <p className="mt-2 text-sm text-muted-foreground max-w-xl">
           Describe your situation in chat, or pick a module and fill in the parameters directly.
         </p>
@@ -138,11 +138,11 @@ export default function Analyze() {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_380px]">
         {/* Chat + form */}
         <div className="space-y-6">
-          <Card className="glass-card shadow-card border-0">
-            <CardHeader className="border-b border-border/40 bg-gradient-to-r from-primary/5 to-accent/5 rounded-t-2xl">
+          <Card className="glass-card shadow-card">
+            <CardHeader className="border-b border-border/40 rounded-t-xl">
               <CardTitle className="flex items-center gap-2 text-base">
-                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-primary">
-                  <Sparkles className="h-3.5 w-3.5 text-white" />
+                <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary">
+                  <Stethoscope className="h-3.5 w-3.5 text-primary-foreground" />
                 </div>
                 Chat with HealthIntel
               </CardTitle>
@@ -185,16 +185,16 @@ export default function Analyze() {
                   className="rounded-xl"
                 />
                 <Button onClick={send} size="icon" aria-label="Send"
-                  className="bg-gradient-primary text-white border-0 rounded-xl hover:opacity-90">
+                  className="bg-primary text-primary-foreground border-0 rounded-lg hover:opacity-90">
                   <Send className="h-4 w-4" />
                 </Button>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="glass-card shadow-card border-0">
-            <CardHeader className="border-b border-border/40 bg-gradient-to-r from-accent/5 to-primary/5 rounded-t-2xl">
-              <CardTitle className="text-base gradient-text">Inputs & Analysis</CardTitle>
+          <Card className="glass-card shadow-card">
+            <CardHeader className="border-b border-border/40 rounded-t-xl">
+              <CardTitle className="text-base text-foreground">Inputs & Analysis</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 pt-6">
               <div className="space-y-1.5">

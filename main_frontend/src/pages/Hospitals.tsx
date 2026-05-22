@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Loader2, MapPin, Search, Locate, Phone, Star, Navigation } from "lucide-react";
+import { Loader2, MapPin, Search, Locate, Phone, Star, Navigation, AlertTriangle } from "lucide-react";
 import { apiClient, Hospital } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import { HospitalMap } from "@/components/HospitalMap";
@@ -54,6 +54,8 @@ export default function Hospitals() {
   const [selectedHospital, setSelectedHospital] = useState<Hospital | null>(null);
   const [mapBoundsCenter, setMapBoundsCenter] = useState<[number, number] | null>(null);
   const [minRating, setMinRating] = useState<number>(0);
+  const [page, setPage] = useState<number>(1);
+  const PAGE_SIZE = 10;
 
   const history = useStore((s) => s.history);
   const defaultCat = history[0]?.diseaseCategory || "heart_disease";
@@ -136,8 +138,16 @@ export default function Hospitals() {
     return hospitals.filter(h => (h.rating ?? 0) >= minRating);
   }, [hospitals, minRating]);
 
+  // Reset to first page when search results or filters change
+  useEffect(() => {
+    setPage(1);
+  }, [filteredHospitals.length]);
+
+  const totalPages = Math.ceil(filteredHospitals.length / PAGE_SIZE);
+  const paginatedHospitals = filteredHospitals.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   return (
-    <div className="mx-auto w-full max-w-7xl px-6 py-8">
+    <div className="mx-auto w-full max-w-full px-6 py-8">
       <div className="mb-6">
         <h1 className="text-3xl font-bold tracking-tight">Find Hospitals</h1>
         <p className="text-sm text-muted-foreground">
@@ -168,7 +178,7 @@ export default function Hospitals() {
             )}
             {location.error && !location.city && (
               <span className="text-xs font-normal text-destructive flex items-center gap-1">
-                ⚠ {location.error}
+                <AlertTriangle className="h-3 w-3 shrink-0" /> {location.error}
               </span>
             )}
           </CardTitle>
@@ -322,7 +332,7 @@ export default function Hospitals() {
                     className="h-7 text-xs px-2"
                     onClick={() => setMinRating(4.0)}
                   >
-                    ⭐ 4.0+
+                    <Star className="h-3 w-3 text-warning inline" /> 4.0+
                   </Button>
                   <Button 
                     variant={minRating === 4.5 ? "default" : "outline"} 
@@ -330,7 +340,7 @@ export default function Hospitals() {
                     className="h-7 text-xs px-2"
                     onClick={() => setMinRating(4.5)}
                   >
-                    ⭐ 4.5+
+                    <Star className="h-3 w-3 text-warning inline" /> 4.5+
                   </Button>
                 </div>
               )}
@@ -350,7 +360,7 @@ export default function Hospitals() {
                 No hospitals yet. Set a location and click <em>Find Hospitals</em>.
               </p>
             )}
-            {filteredHospitals.map((h, i) => {
+            {paginatedHospitals.map((h, i) => {
               const dist = h.distance_km ?? h.distance;
               const isSelected = selectedHospital?.name === h.name;
               
@@ -415,6 +425,32 @@ export default function Hospitals() {
                 </div>
               );
             })}
+            
+            {!searching && totalPages > 1 && (
+              <div className="flex items-center justify-between pt-2 pb-1">
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                  className="h-8 text-xs"
+                >
+                  Previous
+                </Button>
+                <span className="text-xs text-muted-foreground">
+                  Page {page} of {totalPages}
+                </span>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                  className="h-8 text-xs"
+                >
+                  Next
+                </Button>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

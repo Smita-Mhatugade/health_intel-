@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Activity, Home, Stethoscope, Hospital, History, Info, Moon, Sun, Settings, Menu, X } from "lucide-react";
+import { Activity, Home, Stethoscope, Hospital, History, Info, Moon, Sun, Settings, Menu, X, AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/store/useStore";
 import {
@@ -33,16 +33,16 @@ export function AppLayout({ children }: { children: ReactNode }) {
 
       {/* ── Top Navigation Bar ─────────────────────────────────────── */}
       <header className="top-nav sticky top-0 z-50 w-full">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 max-w-full items-center justify-between px-4 sm:px-6 lg:px-8">
 
           {/* Logo */}
           <Link to="/" className="flex shrink-0 items-center gap-3 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-primary shadow-glow animate-pulse-glow transition-transform group-hover:scale-110">
-              <Activity className="h-5 w-5 text-white" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary transition-transform group-hover:scale-105">
+              <Activity className="h-5 w-5 text-primary-foreground" />
             </div>
             <div className="flex flex-col leading-none">
-              <span className="text-base font-bold tracking-tight gradient-text">HealthIntel</span>
-              <span className="text-[10px] text-muted-foreground hidden sm:block">AI Medical Insights</span>
+              <span className="text-base font-bold tracking-tight text-primary">HealthIntel</span>
+              <span className="text-[10px] text-muted-foreground hidden sm:block">Clinical Decision Support</span>
             </div>
           </Link>
 
@@ -57,7 +57,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
                   cn(
                     "flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200",
                     isActive
-                      ? "bg-gradient-primary text-white shadow-soft"
+                      ? "bg-primary text-primary-foreground shadow-sm"
                       : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
                   )
                 }
@@ -80,7 +80,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle className="gradient-text">Settings</DialogTitle>
+                  <DialogTitle className="text-foreground font-semibold">Settings</DialogTitle>
                 </DialogHeader>
                 <div className="space-y-2">
                   <Label htmlFor="api-url">Backend URL</Label>
@@ -95,7 +95,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
                   </p>
                 </div>
                 <DialogFooter>
-                  <Button className="bg-gradient-primary text-white border-0"
+                  <Button className="bg-primary text-primary-foreground border-0"
                     onClick={() => { setApiBaseUrl(apiUrl.trim()); toast.success("Backend URL updated"); setSettingsOpen(false); }}>
                     Save
                   </Button>
@@ -143,7 +143,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
                     cn(
                       "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all",
                       isActive
-                        ? "bg-gradient-primary text-white shadow-soft"
+                        ? "bg-primary text-primary-foreground shadow-sm"
                         : "text-muted-foreground hover:text-foreground hover:bg-accent/10"
                     )
                   }
@@ -165,19 +165,19 @@ export function AppLayout({ children }: { children: ReactNode }) {
       {/* ── Footer ─────────────────────────────────────────────────── */}
       <footer className="relative z-10 border-t border-border/40 bg-background/60 backdrop-blur-md">
         {/* Disclaimer */}
-        <div className="border-b border-border/30 px-6 py-3 text-center text-xs text-muted-foreground">
-          ⚠️ HealthIntel is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment.
+        <div className="border-b border-border/30 px-6 py-3 text-center text-xs text-muted-foreground flex items-center justify-center gap-1.5">
+          <AlertTriangle className="h-3.5 w-3.5 text-warning shrink-0" /> HealthIntel is for informational purposes only and is not a substitute for professional medical advice, diagnosis, or treatment.
         </div>
 
         {/* Trademark */}
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-4 sm:flex-row">
           <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} <span className="font-semibold gradient-text">HealthIntel</span>. All rights reserved.
+            © {new Date().getFullYear()} <span className="font-semibold text-primary">HealthIntel</span>. All rights reserved.
           </p>
 
           <div className="flex items-center gap-2 text-xs text-muted-foreground">
             <span>Designed &amp; Developed by</span>
-            <span className="font-bold gradient-text">Smita Mhatugade</span>
+            <span className="font-bold text-primary">Smita Mhatugade</span>
 
             {/* LinkedIn */}
             <a
